@@ -1,0 +1,23 @@
+
+body {
+  width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #EEE;
+}
+
+.button {
+  margin: 5px;
+}
+
+.word {
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid #EEE;
+  display: inline-block;
+
+}
+
+.animate-on-transform {
+  transition: transform 1s;
+}
