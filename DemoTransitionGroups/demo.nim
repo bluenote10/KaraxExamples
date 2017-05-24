@@ -4,11 +4,6 @@ import jstrutils, jdict, dom
 import future, sequtils, random
 
 
-proc x(n: Node): float {.importcpp: "#.x", nodecl.}
-proc y(n: Node): float {.importcpp: "#.y", nodecl.}
-
-#proc transform(s: Style, transform: cstring) {.importcpp: "#.transform = #", nodecl.}
-
 type
   IdentifyableString = object
     s: string
@@ -35,27 +30,22 @@ proc curry(handler: Model -> void, model: Model): (() -> void) =
 
 
 proc onClick(model: Model, ev: Event, n: VNode) =
-  #kout(ev)
-  #kout(model)
 
   for word in model.text:
     let id = "word-" & $word.id
     let element = getElementById(id)
     if not element.isNil:
       let boundingBox = element.getBoundingClientRect()
-      # kout(boundingBox)
       model.positions[id] = Position(
         x: boundingBox.left.toFloat,
         y: boundingBox.top.toFloat,
       )
 
-  # kout(model.positions)
   shuffle(model.text)
 
 
 proc startTransform(elements: seq[Element]): () -> void =
   result = proc() =
-    #kout(element)
     for element in elements:
       element.classList.add("animate-on-transform")
       element.style.transform = cstring""
@@ -98,7 +88,7 @@ proc view(model: Model): VNode =
   result = buildHtml():
     tdiv:
       button(class="button", onclick=curry(onClick, model)):
-        text "Shuffle Text"
+        text "Shuffle"
       tdiv:
         for word in model.text:
           let id = "word-" & $word.id
@@ -108,12 +98,12 @@ proc view(model: Model): VNode =
 
 proc runMain() =
 
-  # sucks that `pairs` can't be chained. Would be nice to write:
-  # let text = @["Play", "with", "matches,", "you", "get", "burned."]
-  #               .cycle(10)
-  #               .pairs()
-  #               .map((i, w) => IdentifyableString(s: w, id: i))
-  let text = toSeq(pairs(@["Play", "with", "matches,", "you", "get", "burned."].cycle(10))).map(
+  # A pity that `pairs` can't be chained. Would be nice to write:
+  # let text = textOrig.cycle(10)
+  #                    .pairs()
+  #                    .map((i, w) => IdentifyableString(s: w, id: i))
+  let textOrig = @["Entropy", "isn’t", "what", "it", "used", "to", "be."]
+  let text = toSeq(pairs(textOrig.cycle(10))).map(
     t => IdentifyableString(s: t.val, id: t.key)
   )
 
