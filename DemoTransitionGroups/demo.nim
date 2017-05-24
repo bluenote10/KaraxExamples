@@ -53,16 +53,20 @@ proc onClick(model: Model, ev: Event, n: VNode) =
   shuffle(model.text)
 
 
-proc startTransform(element: Element): () -> void =
+proc startTransform(elements: seq[Element]): () -> void =
   result = proc() =
     #kout(element)
-    element.classList.add("animate-on-transform")
-    element.style.transform = cstring""
+    for element in elements:
+      element.classList.add("animate-on-transform")
+      element.style.transform = cstring""
 
 
 proc postRenderCallback(model: Model) =
   kout("post render".cstring)
 
+  var deltas = newSeq[(Element, float, float)]()
+
+  # using a two pass approach to avoid layout thrashing
   for word in model.text:
     var id = "word-" & $word.id
     var element = getElementById(id)
@@ -77,12 +81,17 @@ proc postRenderCallback(model: Model) =
         )
         let dx = oldPos.x - newPos.x
         let dy = oldPos.y - newPos.y
-        let transform = "translateX(" & $dx & "px) translateY(" & $dy & "px)"
-        # kout(oldPos, newPos)
+        deltas &= (element, dx, dy)
 
-        element.style.transform = transform.cstring
+  # second pass: apply transforms
+  for element, dx, dy in deltas.items():
+    let transform = "translateX(" & $dx & "px) translateY(" & $dy & "px)"
+    # kout(oldPos, newPos)
+    element.style.transform = transform.cstring
 
-        reqFrame(startTransform(element))
+  # request start of animation for affected elements
+  let elements = deltas.map(x => x[0])
+  reqFrame(startTransform(elements))
 
 
 proc view(model: Model): VNode =
