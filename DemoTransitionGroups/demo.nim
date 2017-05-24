@@ -37,8 +37,8 @@ proc onClick(model: Model, ev: Event, n: VNode) =
     if not element.isNil:
       let boundingBox = element.getBoundingClientRect()
       model.positions[id] = Position(
-        x: boundingBox.left.toFloat,
-        y: boundingBox.top.toFloat,
+        x: boundingBox.left,
+        y: boundingBox.top,
       )
 
   shuffle(model.text)
@@ -66,8 +66,8 @@ proc postRenderCallback(model: Model) =
         let boundingBox = element.getBoundingClientRect()
         let oldPos = model.positions[id]
         let newPos = Position(
-          x: boundingBox.left.toFloat,
-          y: boundingBox.top.toFloat,
+          x: boundingBox.left,
+          y: boundingBox.top,
         )
         let dx = oldPos.x - newPos.x
         let dy = oldPos.y - newPos.y
