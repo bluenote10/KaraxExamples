@@ -2,4 +2,4 @@
 
 Some Karax example projects:
 
-* [Transition Groups](DemoTransitionGroups/README.md)
+* [Transition Groups](DemoTransitionGroups)
