@@ -11,12 +11,12 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       // the main test file is served by Karma
-      'test.nim',
+      'nimcache/test.js',
       {
         pattern: "**/*.nim",
         watched: true,
         served: false,
-        included: true
+        included: false
       }
     ],
 
@@ -31,7 +31,7 @@ module.exports = function(config) {
     },
 
     nimPreprocessor: {
-      main: 'test.nim'
+      cmd: 'nim js --colors:on test.nim'
     },
 
     // test results reporter to use

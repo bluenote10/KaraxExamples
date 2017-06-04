@@ -6,7 +6,7 @@ proc it*(description: cstring, body: () -> void) {.importc.}
 
 type
   JasmineRequireObj* {.importc.} = ref object
-    negate* {.importc: "not".}: JasmineRequireObj
+    `not`* {.importc: "not".}: JasmineRequireObj
 
 proc expect*[T](x: T): JasmineRequireObj {.importc.}
 
