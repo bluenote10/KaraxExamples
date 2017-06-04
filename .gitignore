@@ -1,2 +1,4 @@
 nimcache
 debug.nim
+node_modules
+/UnitTesting/test.js

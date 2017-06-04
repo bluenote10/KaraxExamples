@@ -1,27 +1,22 @@
 
 import dom, vdom, times, karax, karaxdsl, jdict, jstrutils, parseutils, sequtils
 import future
+import jasmine
 
 static:
   echo: "Compiling..."
 
 
-#[
-proc karmaRunner() =
-  kout("Running karma tests".cstring)
+describe("A test suite"):
 
-var karmaStart {.importc: "window.__karma__.start".}: () -> void
-karmaStart = karmaRunner
-]#
+  it("should work, really"):
+    var a = 1
+    expect(true).toBe(true)
+    expect(a).toBe(1)
+    expect(a).negate.toBe(2)
 
-{.emit: """
-describe("A suite is just a function", function() {
-  var a;
 
-  it("and so is a spec", function() {
-    a = true;
+  let name = "asdf"
 
-    expect(a).toBe(true);
-  });
-});
-""".}
+  it(name):
+    discard
