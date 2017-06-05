@@ -2,7 +2,7 @@
 include karaxprelude
 import jstrutils, jdict, dom
 import future, sequtils, random
-
+import ../karax_utils
 
 type
   IdentifyableString = object
@@ -17,16 +17,6 @@ type
     text: seq[IdentifyableString]
 
     positions: JDict[string, Position]
-
-  EventHandler = (Event, VNode) -> void
-  EventHandlerModel = (Model, Event, VNode) -> void
-
-
-proc curry(handler: EventHandlerModel, model: Model): EventHandler =
-  result = (ev: Event, n: VNode) => handler(model, ev, n)
-
-proc curry(handler: Model -> void, model: Model): (() -> void) =
-  result = () => handler(model)
 
 
 proc onClick(model: Model, ev: Event, n: VNode) =
