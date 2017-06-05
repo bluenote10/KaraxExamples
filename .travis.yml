@@ -34,27 +34,25 @@ install:
     cd ..
 before_script:
     - export PATH="nim-$BRANCH/bin${PATH:+:$PATH}"
-script:
     - |
       git clone git://github.com/pragmagic/karax.git
       cd karax
       nimble install
-      cd ..
-
+script:
+    - |
       cd DemoTransitionGroups
       nim js demo.nim
-      cd ..
-
+    - |
       cd JsIntegration
       nim js demo.nim
-      cd ..
-
+    - |
       cd UnitTesting
-      nim js demo.nim
-      cd ..
+      npm test
     # Optional: build docs.
     # - nim doc --docSeeSrcUrl:https://github.com/AUTHOR/MYPROJECT/blob/master --project MYFILE.nim
 cache:
   directories:
     - nim-master
     - nim-devel
+notifications:
+  email: false
