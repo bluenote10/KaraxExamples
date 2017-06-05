@@ -52,6 +52,7 @@ script:
       nim js demo.nim
     - |
       cd "$TRAVIS_BUILD_DIR/UnitTesting"
+      npm install
       npm test
     # Optional: build docs.
     # - nim doc --docSeeSrcUrl:https://github.com/AUTHOR/MYPROJECT/blob/master --project MYFILE.nim
