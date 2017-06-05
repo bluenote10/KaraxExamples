@@ -1,0 +1,60 @@
+# Copied from https://github.com/nim-lang/Nim/wiki/TravisCI
+language: node_js
+env:
+  # Build and test against the master and devel branches of Nim
+  - BRANCH=master
+  - BRANCH=devel
+matrix:
+  allow_failures:
+    # Ignore failures when building against the devel Nim branch
+    - env: BRANCH=devel
+  fast_finish: true
+install:
+  - |
+    if [ ! -x nim-$BRANCH/bin/nim ]; then
+      git clone -b $BRANCH --depth 1 git://github.com/nim-lang/nim nim-$BRANCH/
+      cd nim-$BRANCH
+      git clone --depth 1 git://github.com/nim-lang/csources csources/
+      cd csources
+      sh build.sh
+      cd ..
+      rm -rf csources
+      bin/nim c koch
+      ./koch boot -d:release
+      ./koch nimble
+    else
+      cd nim-$BRANCH
+      git fetch origin
+      if ! git merge FETCH_HEAD | grep "Already up-to-date"; then
+        bin/nim c koch
+        ./koch boot -d:release
+        ./koch nimble
+      fi
+    fi
+    cd ..
+before_script:
+    - export PATH="nim-$BRANCH/bin${PATH:+:$PATH}"
+script:
+    - |
+      git clone git://github.com/pragmagic/karax.git
+      cd karax
+      nimble install
+      cd ..
+
+      cd DemoTransitionGroups
+      nim js demo.nim
+      cd ..
+
+      cd JsIntegration
+      nim js demo.nim
+      cd ..
+
+      cd UnitTesting
+      nim js demo.nim
+      cd ..
+    # Optional: build docs.
+    # - nim doc --docSeeSrcUrl:https://github.com/AUTHOR/MYPROJECT/blob/master --project MYFILE.nim
+cache:
+  directories:
+    - nim-master
+    - nim-devel
