@@ -2,7 +2,7 @@
 
 Small example of how to implement transition groups in Karax.
 
-![Demo](demo.gif?raw=true "Demo")
+![Demo](../.gifs/demo_transitiongroups.gif?raw=true "Demo")
 
 Currently requires a modified version of Karax, see my PR's for Karax.
 
