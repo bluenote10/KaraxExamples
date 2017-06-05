@@ -33,8 +33,9 @@ install:
     fi
     cd ..
 before_script:
-    - export PATH="nim-$BRANCH/bin${PATH:+:$PATH}"
     - |
+      ls -l nim-$BRANCH/bin"
+      export PATH="nim-$BRANCH/bin${PATH:+:$PATH}"
       git clone git://github.com/pragmagic/karax.git
       cd karax
       nimble install
