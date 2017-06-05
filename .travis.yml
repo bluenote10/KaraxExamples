@@ -39,19 +39,19 @@ before_script:
       NIMABSPATH=`readlink -f nim-$BRANCH/bin`
       export PATH="${NIMABSPATH}${PATH:+:$PATH}"
       echo "Path: $PATH"
-      cd
+      cd "$TRAVIS_BUILD_DIR/.."
       git clone git://github.com/pragmagic/karax.git
       cd karax
       nimble install
 script:
     - |
-      cd ~/KaraxExamples/DemoTransitionGroups
+      cd "$TRAVIS_BUILD_DIR/DemoTransitionGroups"
       nim js demo.nim
     - |
-      cd ~/KaraxExamples/JsIntegration
+      cd "$TRAVIS_BUILD_DIR/JsIntegration"
       nim js demo.nim
     - |
-      cd ~/KaraxExamples/UnitTesting
+      cd "$TRAVIS_BUILD_DIR/UnitTesting"
       npm test
     # Optional: build docs.
     # - nim doc --docSeeSrcUrl:https://github.com/AUTHOR/MYPROJECT/blob/master --project MYFILE.nim
