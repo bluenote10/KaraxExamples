@@ -36,24 +36,22 @@ before_script:
     - |
       echo "Running with Nim from: nim-$BRANCH"
       ls -l "nim-$BRANCH/bin"
-      export PATH="nim-$BRANCH/bin${PATH:+:$PATH}"
-      echo $PATH
       NIMABSPATH=`readlink -f nim-$BRANCH/bin`
       export PATH="${NIMABSPATH}${PATH:+:$PATH}"
-      echo $PATH
+      echo "Path: $PATH"
+      cd
       git clone git://github.com/pragmagic/karax.git
       cd karax
       nimble install
-      cd ..
 script:
     - |
-      cd DemoTransitionGroups
+      cd ~/KaraxExamples/DemoTransitionGroups
       nim js demo.nim
     - |
-      cd JsIntegration
+      cd ~/KaraxExamples/JsIntegration
       nim js demo.nim
     - |
-      cd UnitTesting
+      cd ~/KaraxExamples/UnitTesting
       npm test
     # Optional: build docs.
     # - nim doc --docSeeSrcUrl:https://github.com/AUTHOR/MYPROJECT/blob/master --project MYFILE.nim
