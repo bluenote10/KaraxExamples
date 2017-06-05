@@ -5,6 +5,7 @@
 Some Karax example projects:
 
 * [Elm-like 1](ElmLike1)
+* [Elm-like 2](ElmLike2)
 * [Transition Groups](DemoTransitionGroups)
 * [Js Integration](JsIntegration)
 * [Unit Testing](UnitTesting)
