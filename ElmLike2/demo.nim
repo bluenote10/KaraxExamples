@@ -63,7 +63,6 @@ proc view(model: Model): VNode =
 
 # Putting it all together
 proc runMain() =
-
   var model = init()
 
   proc renderer(): VNode =

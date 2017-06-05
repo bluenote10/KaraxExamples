@@ -19,6 +19,7 @@ proc onClick(model: Model, ev: Event, n: VNode) =
   # a global `update` like Elm as well. In this case
   # the event handlers would construct a message type
   # and pass it to a model update function.
+  # See second ElmLike demo for an example
   kout(ev)
   kout(model)
   model.toggle = model.toggle xor true
@@ -41,7 +42,6 @@ proc view(model: Model): VNode =
 
 # Putting it all together
 proc runMain() =
-
   var model = init()
 
   proc renderer(): VNode =
