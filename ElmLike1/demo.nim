@@ -1,6 +1,6 @@
 
 include karaxprelude
-import jstrutils, jdict, dom
+import jstrutils, jdict, kdom
 import ../karax_utils
 
 type
