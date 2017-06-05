@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Testing unit tests",
   "scripts": {
-    "test": "clear && npm run test:build --silent && npm run test:karma --silent",
+    "test": "npm run test:build --silent && npm run test:karma --silent",
     "test:build": "nim js test.nim",
     "test:karma": "karma start karma.conf.js --singleRun",
     "test:watch": "watch 'npm run test' . --interval=0.1"
