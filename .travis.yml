@@ -51,6 +51,9 @@ script:
       cd "$TRAVIS_BUILD_DIR/ElmLike2"
       nim js demo.nim
     - |
+      cd "$TRAVIS_BUILD_DIR/VueLike1"
+      nim js demo.nim
+    - |
       cd "$TRAVIS_BUILD_DIR/DemoTransitionGroups"
       nim js demo.nim
       echo "Ignoring for now until PR is merged"
