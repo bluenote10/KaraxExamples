@@ -1,4 +1,5 @@
 import macros
+import future
 
 
 macro curry*(f: typed, args: varargs[untyped]): untyped = # ,
@@ -53,3 +54,8 @@ macro curry*(f: typed, args: varargs[untyped]): untyped = # ,
   result = newProc(params=params, body=body, procType=nnkLambda)
   # echo result.treeRepr
 
+
+proc reduce*[T](s: seq[T], f: (T, T) -> T): T =
+  result = T(0)
+  for x in s:
+    result = f(result, x)
